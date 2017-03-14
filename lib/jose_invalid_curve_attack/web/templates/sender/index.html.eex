@@ -1,0 +1,17 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+     
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="jumbotron">
+    <h2> Hello Attacker!! </h2>
+    <form action="<%= sender_url(@conn, :post_recover) %>" method="POST">
+      <input type="hidden" name="_csrf_token" value="<%= get_csrf_token() %>">
+      <input class="form-control" type="text" name="url" required value="<%= receiver_url(@conn, :post_secret) %>"><br>
+      <button type="submit" class="btn btn-primary" onclick="recoverKey(this);" >Recover Key</button>
+    </form>
+  </div>
+</div>

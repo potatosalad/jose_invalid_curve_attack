@@ -1,0 +1,1 @@
+<h2>Hi there! Just POST your secret to <%= receiver_url(@conn, :post_secret) %></h2>

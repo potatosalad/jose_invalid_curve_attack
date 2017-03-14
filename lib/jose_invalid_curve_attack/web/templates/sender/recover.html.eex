@@ -1,0 +1,51 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <h1 class="navbar-brand">The recovered private key is: <span class="label label-primary"><%= if is_map(@results["key"]) do %>unknown<% else %><%= @results["key"] %><% end %></label></h1>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="jumbotron">
+    <strong>Recovering private key modulo 179</strong><br>
+    <ul>
+    <%= for {value, key} <- Enum.with_index(@results["req179"]["requests"]) do %>
+      <li>Trying with <%= key+1 %> mod 179 
+        <a href="<%= receiver_url(@conn, :post_secret) %>?<%= value["body"] %>"><%= receiver_url(@conn, :post_secret) %>?<%= truncate(value["body"]) %></a>
+        <%= if (key == @results["req179"]["index"]) do %>
+          <span class="label label-success"> Success!! </span>
+        <% else %>
+          <span class="label label-danger"> Failed </span>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+    <%= if @results["req179"]["index"] == -1 do %>
+      <strong>Unable to find private key modulo 179, server does not appear to be vulnerable</strong>
+    <% else %>
+      <strong>Found private key modulo 179, try it out:</strong>
+      <a href="<%= receiver_url(@conn, :post_secret) %>?<%= List.last(@results["req179"]["requests"])["body"] %>"><%= receiver_url(@conn, :post_secret) %>?<%= truncate(List.last(@results["req179"]["requests"])["body"]) %></a>
+    <% end %>
+    <br>
+    <br>
+    <strong>Recovering private key modulo 2447</strong><br>
+    <ul>
+    <%= for {value, key} <- Enum.with_index(@results["req2447"]["requests"]) do %>
+      <li>Trying with <%= key+1 %> mod 2447 
+        <a href="<%= receiver_url(@conn, :post_secret) %>?<%= value["body"] %>"><%= receiver_url(@conn, :post_secret) %>?<%= truncate(value["body"]) %></a>
+        <%= if (key == @results["req2447"]["index"]) do %>
+          <span class="label label-success"> Success!! </span>
+        <% else %>
+          <span class="label label-danger"> Failed </span>
+        <% end %>
+      </li>
+    <% end %>
+    </ul>
+    <%= if @results["req2447"]["index"] == -1 do %>
+      <strong>Unable to find private key modulo 2447, server does not appear to be vulnerable</strong>
+    <% else %>
+      <strong>Found private key modulo 2447, try it out:</strong>
+      <a href="<%= receiver_url(@conn, :post_secret) %>?<%= List.last(@results["req2447"]["requests"])["body"] %>"><%= receiver_url(@conn, :post_secret) %>?<%= truncate(List.last(@results["req2447"]["requests"])["body"]) %></a>
+    <% end %>
+  </div>
+</div>

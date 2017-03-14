@@ -1,0 +1,5 @@
+<p>Two apps are hosted here:</p>
+<ol>
+  <li><a href="<%= receiver_path(@conn, :index) %>">JWE Receiver (decrypts JWE tokens)</a></li>
+  <li><a href="<%= sender_path(@conn, :index) %>">JWE Sender (crafts malicious JWE tokens)</a></li>
+</ol>
